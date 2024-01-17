@@ -27,6 +27,9 @@
                 type: 'GET',
                 success: function(response) {
                     $('#data-container').html(response);
+
+                    // Memeriksa nilai OLWB dan menampilkan alert jika melebihi 9
+                    checkOLWBValue();
                 },
                 error: function(error) {
                     console.error('Error reloading data:', error);
@@ -36,13 +39,24 @@
 
         // Memanggil fungsi reloadData setiap 1 menit
         setInterval(reloadData, 60000); // 60000 milidetik = 1 menit
+
+        // Fungsi untuk memeriksa nilai OLWB dan menampilkan alert jika melebihi 9
+        function checkOLWBValue() {
+            var olwbCells = $('td:nth-child(10)'); // Mengambil sel pada kolom OLWB
+
+            olwbCells.each(function() {
+                var olwbValue = parseFloat($(this).text());
+
+                if (!isNaN(olwbValue) && olwbValue > 9) {
+                    alert('Nilai OLWB melebihi 9: ' + olwbValue);
+                }
+            });
+        }
     </script>
-<!-- Tag meta untuk refresh otomatis setiap 1 menit -->
-<meta http-equiv="refresh" content="60">
+    <!-- Tag meta untuk refresh otomatis setiap 1 menit -->
+    <meta http-equiv="refresh" content="60">
 </head>
 <body>
-    <h1>Data Viewer</h1>
-
     <!-- Container untuk menampilkan data -->
     <div id="data-container"></div>
 
