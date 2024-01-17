@@ -18,78 +18,55 @@
             background-color: #f2f2f2;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        // Fungsi untuk memuat ulang data setiap 1 menit
+        function reloadData() {
+            $.ajax({
+                url: 'load_data.php', // Ganti sesuai dengan nama file load_data.php
+                type: 'GET',
+                success: function(response) {
+                    $('#data-container').html(response);
+                },
+                error: function(error) {
+                    console.error('Error reloading data:', error);
+                }
+            });
+        }
+
+        // Memanggil fungsi reloadData setiap 1 menit
+        setInterval(reloadData, 60000); // 60000 milidetik = 1 menit
+    </script>
+<!-- Tag meta untuk refresh otomatis setiap 1 menit -->
+<meta http-equiv="refresh" content="60">
 </head>
 <body>
     <h1>Data Viewer</h1>
-    <form action="process.php" method="post">
-        <button type="submit" name="process">Update</button>
-    </form>
 
-    <?php
-    // Koneksi ke database
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "agro";
+    <!-- Container untuk menampilkan data -->
+    <div id="data-container"></div>
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    <!-- Skrip JavaScript untuk memproses file secara otomatis -->
+    <script>
+        $(document).ready(function() {
+            // Fungsi untuk memproses file CSV secara otomatis
+            function processCSV() {
+                $.ajax({
+                    url: 'process.php', // Ganti sesuai dengan nama file process.php
+                    type: 'POST',
+                    success: function(response) {
+                        console.log('CSV processing successful:', response);
+                        reloadData(); // Memuat ulang data setelah pemrosesan selesai
+                    },
+                    error: function(error) {
+                        console.error('Error processing CSV:', error);
+                    }
+                });
+            }
 
-    // Cek koneksi
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Query untuk mengambil data dari tabel sample
-    $query = "SELECT * FROM sample";
-    $result = $conn->query($query);
-
-    if ($result->num_rows > 0) {
-        // Tampilkan tabel jika ada data
-        echo "<table>";
-        echo "<tr>
-                <th>No.</th>
-                <th>Analysis Time</th>
-                <th>Product Name</th>
-                <th>Product Code</th>
-                <th>Sample Type</th>
-                <th>Sample Number</th>
-                <th>Sample Comment</th>
-                <th>Instrument Name</th>
-                <th>Instrument Serial Number</th>
-                <th>OLWB</th>
-                <th>VM</th>
-                <th>OLDB</th>
-                <th>Ash</th>
-                <th>Fiber</th>
-            </tr>";
-        $counter = 1;
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>
-                    <td>{$counter}</td>
-                    <td>{$row['analysis_time']}</td>
-                    <td>{$row['product_name']}</td>
-                    <td>{$row['product_code']}</td>
-                    <td>{$row['sample_type']}</td>
-                    <td>{$row['sample_number']}</td>
-                    <td>{$row['sample_comment']}</td>
-                    <td>{$row['instrument_name']}</td>
-                    <td>{$row['instrument_serial_number']}</td>
-                    <td>{$row['olwb']}</td>
-                    <td>{$row['vm']}</td>
-                    <td>{$row['oldb']}</td>
-                    <td>{$row['ash']}</td>
-                    <td>{$row['fiber']}</td>
-                </tr>";
-                $counter++;
-        }
-
-        echo "</table>";
-    } else {
-        echo "No data found in the 'sample' table.";
-    }
-
-    // Tutup koneksi
-    $conn->close();
-    ?>
+            // Memanggil fungsi processCSV saat halaman dimuat
+            processCSV();
+        });
+    </script>
 </body>
 </html>
