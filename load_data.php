@@ -43,7 +43,7 @@ if ($result->num_rows > 0) {
                 <td>{$row['product_name']}</td>
                 <td>{$row['product_code']}</td>
                 <td>{$row['sample_type']}</td>
-                <td>{$row['sample_number']}</td>
+                <td id='last-sample-number'>{$row['sample_number']}</td>
                 <td>{$row['sample_comment']}</td>
                 <td>{$row['instrument_name']}</td>
                 <td>{$row['instrument_serial_number']}</td>
