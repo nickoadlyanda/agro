@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 // Query untuk mengambil data dari tabel sample
-$query = "SELECT * FROM sample";
+$query = "SELECT * FROM sample order by id DESC";
 $result = $conn->query($query);
 
 if ($result->num_rows > 0) {
@@ -47,7 +47,7 @@ if ($result->num_rows > 0) {
                 <td>{$row['sample_comment']}</td>
                 <td>{$row['instrument_name']}</td>
                 <td>{$row['instrument_serial_number']}</td>
-                <td>{$row['olwb']}</td>
+                <td id='last-olwb'>{$row['olwb']}</td>
                 <td>{$row['vm']}</td>
                 <td>{$row['oldb']}</td>
                 <td>{$row['ash']}</td>
