@@ -28,22 +28,24 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        // Variabel untuk menyimpan nilai OLWB terakhir
+        // Variabel untuk menyimpan nilai OLWB terakhir dan sample_number terakhir
         var lastOLWBValue = 0;
+        var lastSampleNumber = 0;
 
         // Fungsi untuk menampilkan alert dan memainkan suara jika nilai OLWB melebihi 8
-        function showOLWBAlert(olwbValue) {
+        function showOLWBAlert(olwbValue, sampleNumberValue) {
             // Mendapatkan elemen audio
             var audioElement = document.getElementById('alert-sound');
 
             // Menampilkan alert
-            $('.alert').text('Pemberitahuan, Nilai OLWB melebihi batas, ' + olwbValue).show();
+            $('.alert').text('Pemberitahuan, Mesin ' + sampleNumberValue + ' Nilai OLWB melebihi batas, ' + olwbValue).show();
 
             // Memainkan suara
             audioElement.play();
 
-            // Menyimpan nilai OLWB terakhir
+            // Menyimpan nilai OLWB terakhir dan sample_number terakhir
             lastOLWBValue = olwbValue;
+            lastSampleNumber = sampleNumberValue;
         }
 
         // Fungsi untuk memeriksa nilai OLWB
@@ -52,13 +54,17 @@
             var olwbCell = $('#last-olwb');
             var olwbValue = parseFloat(olwbCell.text());
 
+            // Mendapatkan nilai sample_number terakhir dari elemen tabel dengan ID 'last-sample-number'
+            var sampleNumberCell = $('#last-sample-number');
+            var sampleNumberValue = sampleNumberCell.text();
+
             console.log('Last OLWB Value:', lastOLWBValue);
             console.log('Current OLWB Value:', olwbValue);
 
             // Memeriksa apakah nilai OLWB melebihi 8 dan berbeda dari nilai terakhir
             if (!isNaN(olwbValue) && olwbValue > 8 && olwbValue !== lastOLWBValue) {
                 console.log('Showing alert for OLWB value:', olwbValue);
-                showOLWBAlert(olwbValue);
+                showOLWBAlert(olwbValue, sampleNumberValue);
             }
         }
 
@@ -116,6 +122,6 @@
     </script>
 
     <!-- Elemen untuk memainkan suara -->
-    <audio id="alert-sound" src="sound/soundOLWB.mp3"></audio>
+    <audio id="alert-sound" src="sound/soundOLWB3.mp3"></audio>
 </body>
 </html>
