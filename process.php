@@ -129,7 +129,7 @@ $checkImportedStmt->close();
 
 // Jika ada file CSV, arahkan pengguna ke halaman tampil
 if ($csvFound) {
-    header("Location: datacsv.php");
+    header("Location: index.php");
     exit();
 } else {
     // Jika tidak ada file CSV baru, tampilkan pemberitahuan alert
