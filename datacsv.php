@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tag meta untuk refresh otomatis setiap 1 menit -->
+    <meta http-equiv="refresh" content="60">
     <title>Data Viewer</title>
     <style>
         table {
@@ -24,6 +26,15 @@
             padding: 10px;
             margin-bottom: 15px;
             display: none;
+        }
+        /* Tambahkan gaya untuk warna latar belakang kuning */
+        .table-yellow-bg {
+            background-color: yellow;
+        }
+        /* Tambahkan gaya untuk warna latar belakang merah */
+        .table-red-bg {
+            background-color: red;
+            color: white; /* Untuk memastikan teks terlihat dengan baik di latar belakang merah */
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -88,8 +99,6 @@
         // Memanggil fungsi reloadData setiap 1 menit
         setInterval(reloadData, 60000); // 60000 milidetik = 1 menit
     </script>
-    <!-- Tag meta untuk refresh otomatis setiap 1 menit -->
-    <meta http-equiv="refresh" content="60">
 </head>
 <body>
     <!-- Container untuk menampilkan alert -->
