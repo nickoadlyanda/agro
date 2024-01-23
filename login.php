@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>Login - SPSI Belawan</title>
-    <link rel="icon" type="" href="img/favicon.svg">
+    <link rel="icon" type="" href="img/favicon_ajp.svg">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -201,7 +201,7 @@ body{
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <img src="img/spsiicon.png" width="100px">
+                                        <img src="img/ajp_logo.png" width="100px">
                                         <h1 class="h4 text-gray-900 mb-4">Please Login!</h1>
                                     </div>
                                     <form class="user" method="post" action="cek_login.php">
