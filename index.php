@@ -3,7 +3,8 @@
     if($_SESSION['status']!="login"){
         header("location:login.php?pesan=belum_login");
     }
-    ?>
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,17 +19,15 @@
     <title>Dashboard - AJP System</title>
     <link rel="icon" type="" href="img/favicon_ajp.svg">
 
-        <!-- Custom styles for this template-->
+    <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-        <!-- Data Table-->
-        <style>
+    <!-- Data Table-->
+    <style>
         table {
             border-collapse: collapse;
             width: 100%;
@@ -88,8 +87,16 @@
                     $(this).addClass('table-yellow-bg');
                 } else if (!isNaN(olwbValue) && olwbValue >= 10) {
                     $(this).addClass('table-red-bg');
+                    // Memunculkan suara alert ketika OLWB melebihi 10
+                    playAlertSound();
                 }
             });
+        }
+
+        // Fungsi untuk memutar suara alert
+        function playAlertSound() {
+            var audio = new Audio('sound/SoundOLWB3.mp3'); // Ganti dengan path file suara alert Anda
+            audio.play();
         }
 
         // Memanggil fungsi colorizeOLWB pada saat dokumen siap
@@ -100,6 +107,7 @@
         // Memanggil fungsi reloadData setiap 1 menit
         setInterval(reloadData, 60000); // 60000 milidetik = 1 menit
     </script>
+    <meta http-equiv="refresh" content="60">
 </head>
 
 <body id="page-top">
@@ -184,7 +192,7 @@
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                         <div class="d-flex">
-                            <a href="export_pdf.php" class="btn btn-sm shadow-sm" style="background-color: maroon; color: #fff; margin-right: 10px;" title="Download PDF"><i
+                            <a href="export_pdf.php" class="btn btn-sm shadow-sm" style="background-color: maroon; color: #fff; margin-right: 10px;" title="Download PDF" hidden><i
                                     class="fas fa-file-pdf fa-sm text-white-50"></i> PDF</a>
                             <a href="export_excel.php" class="btn btn-sm shadow-sm" style="background-color: #539165; color: #fff;" title="Download Excel"><i
                                     class="fas fa-file-excel fa-sm text-white-50"></i> Xlsx</a>
@@ -359,13 +367,15 @@
         }
 
         // Query untuk mengambil data dari tabel sample yang OLWB-nya melebihi 8
-        $query = "SELECT sample_number, olwb, vm FROM firstpress WHERE olwb > 8 order by olwb ASC";
+        $query = "SELECT sample_number, olwb, vm FROM firstpress WHERE olwb > 8 order by id ASC";
         $result = $conn->query($query);
+        $counter = 1;
 
         if ($result->num_rows > 0) {
             // Tampilkan tabel jika ada data
             echo "<table>
                     <tr>
+                        <th width='40px'>No</th>
                         <th>Sample Number</th>
                         <th>OLWB</th>
                         <th>VM</th>
@@ -373,10 +383,12 @@
             while ($row = $result->fetch_assoc()) {
                 // Tambahkan kelas 'olwb-column' untuk kolom OLWB
                 echo "<tr>
+                        <td>{$counter}</td>
                         <td>{$row['sample_number']}</td>
                         <td class='olwb-column'>{$row['olwb']}</td>
                         <td>{$row['vm']}</td>
                     </tr>";
+                    $counter++;
             }
             echo "</table>";
         } else {
@@ -416,13 +428,15 @@
         }
 
         // Query untuk mengambil data dari tabel sample yang OLWB-nya melebihi 8
-        $query = "SELECT sample_number, olwb, vm FROM firstpress WHERE olwb > 8 order by olwb ASC";
+        $query = "SELECT sample_numbersp, olwbsp, vmsp FROM secondpress WHERE olwbsp > 8 order by idsp ASC";
         $result = $conn->query($query);
+        $counterr = 1;
 
         if ($result->num_rows > 0) {
             // Tampilkan tabel jika ada data
             echo "<table>
                     <tr>
+                        <th width='40px'>No</th>
                         <th>Sample Number</th>
                         <th>OLWB</th>
                         <th>VM</th>
@@ -430,10 +444,12 @@
             while ($row = $result->fetch_assoc()) {
                 // Tambahkan kelas 'olwb-column' untuk kolom OLWB
                 echo "<tr>
-                        <td>{$row['sample_number']}</td>
-                        <td class='olwb-column'>{$row['olwb']}</td>
-                        <td>{$row['vm']}</td>
+                <td>{$counterr}</td>
+                        <td>{$row['sample_numbersp']}</td>
+                        <td class='olwb-column'>{$row['olwbsp']}</td>
+                        <td>{$row['vmsp']}</td>
                     </tr>";
+                    $counterr++;
             }
             echo "</table>";
         } else {
