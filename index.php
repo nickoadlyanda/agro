@@ -367,7 +367,7 @@
         }
 
         // Query untuk mengambil data dari tabel sample yang OLWB-nya melebihi 8
-        $query = "SELECT sample_number, olwb, vm FROM firstpress WHERE olwb > 8 order by id ASC";
+        $query = "SELECT sample_number, olwb, vm FROM firstpress WHERE olwb > 8 order by id desc";
         $result = $conn->query($query);
         $counter = 1;
 
@@ -428,7 +428,7 @@
         }
 
         // Query untuk mengambil data dari tabel sample yang OLWB-nya melebihi 8
-        $query = "SELECT sample_numbersp, olwbsp, vmsp FROM secondpress WHERE olwbsp > 8 order by idsp ASC";
+        $query = "SELECT sample_numbersp, olwbsp, vmsp FROM secondpress WHERE olwbsp > 8 order by idsp desc";
         $result = $conn->query($query);
         $counterr = 1;
 
