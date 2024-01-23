@@ -14,8 +14,7 @@
     <meta name="author" content="">
 
     <title>Data First Press - AJP System</title>
-    <link rel="icon" type="" href="img/favicon.svg">
-
+    <link rel="icon" type="" href="img/favicon_ajp.svg">
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
      <!-- Custom fonts for this template -->
@@ -110,7 +109,7 @@
         function reloadData() {
             console.log('Reloading data...');
             $.ajax({
-                url: 'load_data.php',
+                url: 'load_data2.php',
                 type: 'GET',
                 success: function(response) {
                     $('#data-container').html(response);
@@ -206,7 +205,7 @@
 
                     <?php
                     include 'koneksi.php';
-                    $data = mysqli_query($koneksi,"SELECT * FROM firstpress");
+                    $data = mysqli_query($koneksi,"SELECT * FROM secondpress");
                     // menghitung data berdasarkan id
                     $jumlah_anggota = mysqli_num_rows($data);
                     ?>
@@ -293,7 +292,7 @@
                             <?php 
             include 'koneksi.php';
             //Script Menampilkan Data berdasarkan id terakhir
-            $data = mysqli_query($koneksi,"select * from firstpress order by id DESC");
+            $data = mysqli_query($koneksi,"select * from secondpress order by idsp DESC");
             //nomor
             $no = 1;
             //mengambil data
@@ -302,23 +301,23 @@
             ?>
 
                                         <tr style="font-size:10pt; color:#16213E;">
-                                        <td style="vertical-align: middle;"><?php echo $no++; ?></</td>
-                                        <td style="vertical-align: middle; text-transform: uppercase;"><?php echo $d['created_at']; ?></td>
-                                            <td style="vertical-align: middle; text-transform: uppercase;"><?php echo $d['analysis_time']; ?></td>
-                                            <td style="vertical-align: middle; text-transform: uppercase;"><?php echo $d['product_name']; ?></td>
-                                            <td style="vertical-align: middle; text-transform: uppercase;"><?php echo $d['product_code']; ?></td>
-                                            <td style="vertical-align: middle;"><?php echo $d['sample_type']; ?></td>
-                                            <td style="vertical-align: middle;"><?php echo $d['sample_number']; ?></td>
-                                            <td style="vertical-align: middle;"><?php echo $d['sample_comment']; ?></td>
-                                            <td style="vertical-align: middle; text-transform: uppercase;"><?php echo $d['instrument_name']; ?></td>
-                                            <td style="vertical-align: middle; text-transform: uppercase;"><?php echo $d['instrument_serial_number']; ?></td>
-                                            <td style="vertical-align: middle; text-transform: uppercase;" class="<?php echo ($d['olwb'] > 8 && $d['olwb'] < 10) ? 'table-yellow-bg' : ($d['olwb'] > 10 ? 'table-red-bg' : ''); ?>">
-    <?php echo $d['olwb']; ?>
+                                        <td style="vertical-align: middle;"><?php echo $no++; ?></td>
+                                        <td style="vertical-align: middle; text-transform: uppercase;"><?php echo $d['created_atsp']; ?></td>
+                                            <td style="vertical-align: middle; text-transform: uppercase;"><?php echo $d['analysis_timesp']; ?></td>
+                                            <td style="vertical-align: middle; text-transform: uppercase;"><?php echo $d['product_namesp']; ?></td>
+                                            <td style="vertical-align: middle; text-transform: uppercase;"><?php echo $d['product_codesp']; ?></td>
+                                            <td style="vertical-align: middle;"><?php echo $d['sample_typesp']; ?></td>
+                                            <td style="vertical-align: middle;"><?php echo $d['sample_numbersp']; ?></td>
+                                            <td style="vertical-align: middle;"><?php echo $d['sample_commentsp']; ?></td>
+                                            <td style="vertical-align: middle; text-transform: uppercase;"><?php echo $d['instrument_namesp']; ?></td>
+                                            <td style="vertical-align: middle; text-transform: uppercase;"><?php echo $d['instrument_serial_numbersp']; ?></td>
+                                            <td style="vertical-align: middle; text-transform: uppercase;" class="<?php echo ($d['olwbsp'] > 8 && $d['olwbsp'] < 10) ? 'table-yellow-bg' : ($d['olwbsp'] > 10 ? 'table-red-bg' : ''); ?>">
+    <?php echo $d['olwbsp']; ?>
 </td>
-                                            <td style="vertical-align: middle; text-transform: uppercase;"><?php echo $d['vm']; ?></td>
-                                            <td style="vertical-align: middle;"><?php echo $d['oldb']; ?></td>
-                                            <td style="vertical-align: middle;"><?php echo $d['ash']; ?></td>
-                                            <td style="vertical-align: middle;"><?php echo $d['fiber']; ?></td>
+                                            <td style="vertical-align: middle; text-transform: uppercase;"><?php echo $d['vmsp']; ?></td>
+                                            <td style="vertical-align: middle;"><?php echo $d['oldbsp']; ?></td>
+                                            <td style="vertical-align: middle;"><?php echo $d['ashsp']; ?></td>
+                                            <td style="vertical-align: middle;"><?php echo $d['fibersp']; ?></td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>
@@ -374,7 +373,7 @@
             // Fungsi untuk memproses file CSV secara otomatis
             function processCSV() {
                 $.ajax({
-                    url: 'process.php',
+                    url: 'process2.php',
                     type: 'POST',
                     success: function(response) {
                         console.log('CSV processing successful:', response);
