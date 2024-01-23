@@ -54,7 +54,7 @@ function processCSVFile($filePath, $conn) {
             $analysisTime = $data[0];
 
             // Cek apakah data dengan analysis_time yang sama sudah ada dalam tabel sample
-            $checkExistingSql = "SELECT * FROM sample WHERE analysis_time = ?";
+            $checkExistingSql = "SELECT * FROM firstpress WHERE analysis_time = ?";
             $checkExistingStmt = $conn->prepare($checkExistingSql);
             $checkExistingStmt->bind_param("s", $analysisTime);
             $checkExistingStmt->execute();
@@ -62,7 +62,7 @@ function processCSVFile($filePath, $conn) {
 
             if ($existingResult->num_rows == 0) {
                 // Sesuaikan dengan struktur CSV Anda dan sesuaikan query SQL
-                $sql = "INSERT INTO sample (analysis_time, product_name, product_code, sample_type, sample_number, sample_comment, instrument_name, instrument_serial_number, olwb, vm, oldb, ash, fiber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO firstpress (analysis_time, product_name, product_code, sample_type, sample_number, sample_comment, instrument_name, instrument_serial_number, olwb, vm, oldb, ash, fiber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 $insertStmt = $conn->prepare($sql);
                 $insertStmt->bind_param("sssssssssssss", $analysisTime, $data[1], $data[2], $data[3], $data[4], $data[5], $data[6], $data[7], $data[8], $data[9], $data[10], $data[11], $data[12]);
 
@@ -75,7 +75,7 @@ function processCSVFile($filePath, $conn) {
 
                 $insertStmt->close();
             } else {
-                echo "Data with analysis_time $analysisTime already exists in the sample table, skipping insertion<br>";
+                echo "Data with analysis_time $analysisTime already exists in the firstpress table, skipping insertion<br>";
             }
             $checkExistingStmt->close();
         }
@@ -122,10 +122,10 @@ foreach ($files as $file) {
                 processCSVFile($filePath, $conn);
             }
         }
+
+        $checkImportedStmt->close();  // Pindahkan ini ke dalam kondisi if di atas
     }
 }
-
-$checkImportedStmt->close();
 
 // Jika ada file CSV, arahkan pengguna ke halaman tampil
 if ($csvFound) {
