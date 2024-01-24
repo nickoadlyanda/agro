@@ -12,9 +12,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta http-equiv="refresh" content="60">
 
     <title>Data First Press - AJP System</title>
-    <link rel="icon" type="" href="img/favicon.svg">
+    <link rel="icon" type="" href="img/favicon_ajp.svg">
 
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -126,6 +127,7 @@
         // Memanggil fungsi reloadData setiap 1 menit
         setInterval(reloadData, 60000); // 60000 milidetik = 1 menit
     </script>
+  
 </head>
 <body id="page-top">
 
@@ -208,18 +210,18 @@
                     include 'koneksi.php';
                     $data = mysqli_query($koneksi,"SELECT * FROM firstpress");
                     // menghitung data berdasarkan id
-                    $jumlah_anggota = mysqli_num_rows($data);
+                    $jumlah_data = mysqli_num_rows($data);
                     ?>
 
                     <div class="button-function" style="margin-bottom: 10px;">
-                    <a href="form-tenagakerja.php" class="btn btn-primary btn-icon-split btn-sm">
+                    <a href="form-tenagakerja.php" class="btn btn-primary btn-icon-split btn-sm" hidden>
                         <span class="icon text-white-50">
                             <i class="fas fa-plus" title="Tambah Data"></i>
                         </span>
                         <span class="text" hidden></span>
                     </a>
 
-                    <a href="export_pdf.php" class="btn btn btn-icon-split btn-sm" style="background-color: maroon; color: #fff">
+                    <a href="export_pdf.php" class="btn btn btn-icon-split btn-sm" style="background-color: maroon; color: #fff" hidden>
                         <span class="icon text-white-50">
                             <i class="fas fa-file-pdf" title="Download PDF"></i>
                         </span>
@@ -228,7 +230,7 @@
 
                     <a href="export_excel.php" class="btn btn btn-icon-split btn-sm" style="background-color: #304D30; color: #fff">
                         <span class="icon text-white-50">
-                            <i class="fas fa-file-excel" title="Download Excel"></i>
+                            <i class="fas fa-file-excel" title="Download Excel"></i> Download
                         </span>
                         <span class="text" hidden></span>
                     </a>                                      
@@ -237,7 +239,7 @@
                         <span class="icon text-white-50">
                             <i class="fas fa-user"></i>
                         </span>
-                        <span class="text"><?php echo $jumlah_anggota; ?></span>
+                        <span class="text"><?php echo $jumlah_data; ?></span>
                     </a>
                     </div>
                     <br>
