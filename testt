@@ -1,0 +1,58 @@
+<?php
+// Ganti IP_SERVER_DRIVE, USERNAME, dan PASSWORD dengan nilai yang sesuai
+$ipServerDrive = "IP_SERVER_DRIVE";
+$username = "USERNAME";
+$password = "PASSWORD";
+$letter = "Z";
+
+// Mapping drive menggunakan net use
+shell_exec("net use ".$letter.": \\\\".$ipServerDrive." /user:".$username." ".$password);
+
+// Ubah path folder sesuai dengan folder yang ingin Anda baca
+$folderPath = $letter.":/path/ke/folder";
+
+// Baca folder dan file
+$files = scandir($folderPath);
+
+$csvFound = false; // Menandakan apakah ada file CSV yang ditemukan
+
+foreach ($files as $file) {
+    if ($file != "." && $file != "..") {
+        $filePathsp = $folderPath . "/" . $file;
+        $fileSizesp = filesize($filePathsp);
+
+        // Hanya proses file yang belum diimpor
+        $checkImportedSql = "SELECT * FROM file_datasp WHERE file_pathsp = ?";
+        $checkImportedStmt = $conn->prepare($checkImportedSql);
+        $checkImportedStmt->bind_param("s", $filePathsp);
+        $checkImportedStmt->execute();
+        $importedResult = $checkImportedStmt->get_result();
+
+        if ($importedResult->num_rows == 0) {
+            // File belum diimpor, proses
+            insertFileData($file, $filePathsp, $fileSizesp, $conn);
+
+            // Cek apakah file CSV
+            $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+            if (strtolower($fileExtension) === 'csv') {
+                $csvFound = true;
+                processCSVFile($filePathsp, $conn);
+            }
+        }
+
+        $checkImportedStmt->close();
+    }
+}
+
+// Jika ada file CSV, arahkan pengguna ke halaman tampil
+if ($csvFound) {
+    header("Location: secondpress.php");
+    exit();
+} else {
+    // Jika tidak ada file CSV baru, tampilkan pemberitahuan alert
+    echo "<script>alert('Tidak ada file CSV baru yang ditemukan.')</script>";
+}
+
+// Tutup koneksi
+$conn->close();
+?>
