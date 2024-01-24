@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Data First Press - AJP System</title>
+    <title>Data Second Press - AJP System</title>
     <link rel="icon" type="" href="img/favicon_ajp.svg">
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -199,7 +199,7 @@
                     <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Data First Press</li>
+                        <li class="breadcrumb-item active" aria-current="page">Data Second Press</li>
                       </ol>
                     </nav>
 
@@ -207,27 +207,27 @@
                     include 'koneksi.php';
                     $data = mysqli_query($koneksi,"SELECT * FROM secondpress");
                     // menghitung data berdasarkan id
-                    $jumlah_anggota = mysqli_num_rows($data);
+                    $jumlah_data = mysqli_num_rows($data);
                     ?>
 
                     <div class="button-function" style="margin-bottom: 10px;">
-                    <a href="form-tenagakerja.php" class="btn btn-primary btn-icon-split btn-sm">
+                    <a href="form-tenagakerja.php" class="btn btn-primary btn-icon-split btn-sm" hidden>
                         <span class="icon text-white-50">
                             <i class="fas fa-plus" title="Tambah Data"></i>
                         </span>
                         <span class="text" hidden></span>
                     </a>
 
-                    <a href="export_pdf.php" class="btn btn btn-icon-split btn-sm" style="background-color: maroon; color: #fff">
+                    <a href="export_pdf.php" class="btn btn btn-icon-split btn-sm" style="background-color: maroon; color: #fff" hidden>
                         <span class="icon text-white-50">
                             <i class="fas fa-file-pdf" title="Download PDF"></i>
                         </span>
                         <span class="text" hidden></span>
                     </a>
 
-                    <a href="export_excel.php" class="btn btn btn-icon-split btn-sm" style="background-color: #304D30; color: #fff">
+                    <a href="export_excel_sp.php" class="btn btn btn-icon-split btn-sm" style="background-color: #304D30; color: #fff">
                         <span class="icon text-white-50">
-                            <i class="fas fa-file-excel" title="Download Excel"></i>
+                            <i class="fas fa-file-excel" title="Download Excel"></i> Download
                         </span>
                         <span class="text" hidden></span>
                     </a>                                      
@@ -236,14 +236,14 @@
                         <span class="icon text-white-50">
                             <i class="fas fa-user"></i>
                         </span>
-                        <span class="text"><?php echo $jumlah_anggota; ?></span>
+                        <span class="text"><?php echo $jumlah_data; ?></span>
                     </a>
                     </div>
                     <br>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header border-left-primary py-3" style="background-color: #16213E;">
-                            <h6 class="m-0 font-weight-bold" style="color: #fff">Data First Press<a href="data-tenagakerja.php"><i class="fas fa-sync fa-spin" style="float:right; color: #fff;"></i></a></h6>
+                            <h6 class="m-0 font-weight-bold" style="color: #fff">Data Second Press<a href="data-tenagakerja.php"><i class="fas fa-sync fa-spin" style="float:right; color: #fff;"></i></a></h6>
 
                         </div>
                         <div class="card-body">
